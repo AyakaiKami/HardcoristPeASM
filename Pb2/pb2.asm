@@ -11,7 +11,7 @@ _start:
     mov r10,0
 
     ;setting upper limit
-    mov r9,10
+    mov r9,144
 
     mov r11,1 ;varFib1  last position
     mov r12,2 ;varFib2 current position
