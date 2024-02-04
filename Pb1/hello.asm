@@ -5,7 +5,7 @@ section .text
    global _start
 ;https://projecteuler.net/problem=1
 _start:
-   mov r13,15
+   mov r13,1000
    dec r13
    
    xor r10,r10 ;clear variable where sum is stored
