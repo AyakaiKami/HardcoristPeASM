@@ -67,7 +67,7 @@ _print:
     div rbx ;getting the last digit
     add rbx,48
     push rax
-    add rdx,48
+    
 
     mov rcx,[digitSpacePos]
     mov [rcx],dl
@@ -85,3 +85,10 @@ _print:
         mov rsi,rcx
         mov rdx,1
         syscall
+
+        mov rcx,[digitSpacePos]
+        dec rcx
+        mov [digitSpacePos],rcx
+        cmp rcx,digitSpace
+        jge _printString
+    ret
