@@ -1,6 +1,6 @@
 section .bss
-   digitSpace resb 100
-   digitSpacePos resb 8
+   digitSpace resb 100 ;space for string
+   digitSpacePos resb 8 ;index
 section .text
    global _start
 ;https://projecteuler.net/problem=1
