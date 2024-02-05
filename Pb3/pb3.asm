@@ -11,10 +11,9 @@ _start:
 
     ;n initialization
     xor r9,r9
-    mov r9,13195
+    mov r9,600851475143
 
     ;loop iterator
-    xor r8,r8
     mov r8,2
 
     ;loop  
@@ -50,7 +49,7 @@ _start:
         jle _loop
 
     ;print rez
-    mov rax,r8
+    mov rax,r10
     call _print
 
     ;exit call
