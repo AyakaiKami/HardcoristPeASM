@@ -36,17 +36,16 @@ _isPlaindrome:;lets say the parameter will be in r8
         xor rdx,rdx
         div rbx
         push rax
-
         mov rax,r9
         mul rbx
         add rax,rdx
         mov r9,rax
-        
         pop rax
-        
         cmp rax,0
         jne _reverseLoop
-    
+
+    mov rax,r9
+    call _print
     cmp r8,r9
     jne _return
     
