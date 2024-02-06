@@ -15,7 +15,7 @@ _start:
     ;print result
     mov rax,11
     call _isPlaindrome
-    call _print
+    ;call _print
 
     mov rax,60
     mov rdi,0
