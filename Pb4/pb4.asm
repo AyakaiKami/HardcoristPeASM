@@ -40,10 +40,12 @@ _isPlaindrome:;lets say the parameter will be in rax
         mul rbx
         add rax,rdx
         mov rcx,rax
-        call _print
         pop rax
+        ;call _print
         cmp rax,0
         jne _loopReverse
+    mov rax,rcx
+    ;call _print
     pop rax
     cmp rax,rcx
     jne _false
