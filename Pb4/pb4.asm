@@ -13,7 +13,7 @@ _start:
     
     
     ;print result
-    mov r8,11
+    mov rax,11
     call _isPlaindrome
     call _print
 
@@ -22,71 +22,89 @@ _start:
     syscall
     
 
-_isPlaindrome:;lets say the parameter will be in r8
+_isPlaindrome:;lets say the parameter will be in rax
     ;we will need to make a reverse version of that number
+   
+   ;save data
+   push rax ;save argument
+   
+   xor rcx,rcx;here we ll save the reversed number
 
-    ;number in reverse
-    xor r9,r9
-    
-    ;we make a copy of the number
-    mov  rax,r8
     mov rbx,10
 
-    _reverseLoop:
+   _loopReverse:
         xor rdx,rdx
         div rbx
         push rax
-        mov rax,r9
+        mov rax,rcx
         mul rbx
         add rax,rdx
-        mov r9,rax
+        mov rcx,rax
+        call _print
         pop rax
         cmp rax,0
-        jne _reverseLoop
+        jne _loopReverse
+    pop rax
+    cmp rax,rcx
+    jne _false
+        mov rax,1
+        ret
 
-    mov rax,r9
-    call _print
-    cmp r8,r9
-    jne _return
-    
-    mov rax,1
-    
-    _return:
+    _false:
+        mov rax,0
         ret
     
 
 _print:
-    mov rcx,digitSpace
-    mov rbx,10
-    mov [rcx],rbx
-    inc rcx
-    mov [digitSpacePos],rcx
+    ;saving registeres
+    push rax
+    push rbx
+    push rcx
+    push rdx
+    push rdi
+    push rsi
 
-    _stringMakeLoop:
-        mov rdx,0
-        div rbx
-        add rdx,48
+   mov rcx,digitSpace
+   mov rbx,10
+   mov [rcx],rbx
+   inc rcx
+   mov [digitSpacePos],rcx
 
-        mov rcx,[digitSpacePos]
-        mov [rcx],dl
-        inc rcx
-        mov [digitSpacePos],rcx
+   _stringMakeLoop:
+   mov rdx,0
+   mov rbx,10
+   div rbx
+   push rax
+   add rdx,48 
 
-        cmp rax,0
-        jne _stringMakeLoop
+   mov rcx,[digitSpacePos]
+   mov [rcx],dl
+   inc rcx
+   mov [digitSpacePos],rcx
 
-    _printString:
-        mov rcx,[digitSpacePos]
-        mov rax,1
-        mov rdi,1
-        mov rsi,rcx
-        mov rdx,1
-        syscall
+   pop rax
+   cmp rax,0
+   jne _stringMakeLoop
 
-        mov rcx,[digitSpacePos]
-        dec rcx
-        mov [digitSpacePos],rcx
-        cmp rcx,digitSpace
-        jge _printString
+   _printString:
+      mov rcx,[digitSpacePos]
+      mov rax,1
+      mov rdi,1
+      mov rsi,rcx
+      mov rdx,1
+      syscall
 
-    ret
+      mov rcx,[digitSpacePos]
+      dec rcx
+      mov [digitSpacePos],rcx
+      cmp rcx,digitSpace
+      jge _printString
+
+   ;seting back the registeres
+    pop rsi
+    pop rdi
+    pop rdx
+    pop rcx
+    pop rbx
+    pop rax
+   ret
