@@ -43,14 +43,6 @@ _isPlaindrome:;lets say the parameter will be in r8
         mov r9,rax
         
         pop rax
-
-        push rax
-        push rdx
-        push rbx
-        call _print
-        pop rbx
-        pop rdx
-        pop rax
         
         cmp rax,0
         jne _reverseLoop
