@@ -10,12 +10,21 @@ _start:
 
     ;we will need a function that checks if a number is a plaindrome
     
-    
-    
+    mov r9,999
+    mov r8,999
+    ;when r8 goes lower then 100 r9 shoul decrease
+    _findPalindrome:
+        mov rax,r9
+        mul r8
+        dec r8
+        push rax
+        call _isPlaindrome
+        cmp rax,1
+        jne _findPalindrome
+
+    pop rax
     ;print result
-    mov rax,11
-    call _isPlaindrome
-    ;call _print
+    call _print
 
     mov rax,60
     mov rdi,0
@@ -36,16 +45,17 @@ _isPlaindrome:;lets say the parameter will be in rax
         xor rdx,rdx
         div rbx
         push rax
+        
+        add rcx,rdx
         mov rax,rcx
         mul rbx
-        add rax,rdx
         mov rcx,rax
         pop rax
-        ;call _print
         cmp rax,0
         jne _loopReverse
     mov rax,rcx
-    ;call _print
+    div rbx
+    mov rcx,rax
     pop rax
     cmp rax,rcx
     jne _false
