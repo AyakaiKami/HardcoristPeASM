@@ -9,7 +9,7 @@ _start:
     ;smallest number evenly divisible by all numbers 
     ;from 1 to 20
 
-    mov rax,10
+    mov rax,11
     call _print
 
 
@@ -49,17 +49,18 @@ _print:
 
 
     _printString:
-        mov rcx,[digitSpacePos]
-        mov rax,1
-        mov rdi,1
-        mov rsi,rcx
-        mov rdx,1
-        syscall
+      mov rcx,[digitSpacePos]
+      mov rax,1
+      mov rdi,1
+      mov rsi,rcx
+      mov rdx,1
+      syscall
 
-        dec rcx
-        mov [digitSpacePos],rcx
-        cmp rcx,digitSpace
-        jge _printString
+      mov rcx,[digitSpacePos]
+      dec rcx
+      mov [digitSpacePos],rcx
+      cmp rcx,digitSpace
+      jge _printString
 
     pop rsi
     pop rdi
