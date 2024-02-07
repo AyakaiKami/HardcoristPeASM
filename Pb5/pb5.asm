@@ -8,19 +8,35 @@ _start:
     ;https://projecteuler.net/problem=5
     ;smallest number evenly divisible by all numbers 
     ;from 1 to 20
+    mov r9,1 ;result
 
-    mov rax,2
-    mov rcx,10
-    call _maxPower
-    call _print
-
-
-
+    mov r8,2
+    mov rcx,20
+    
+    _loopIterate:
+        mov rax,r8
+        call _maxPower
+        mov rbx,
+        inc r8
+        
 
     mov rax,60
     mov rdi,0
     syscall
 
+_isInRez:
+    push rax
+    
+    mov rax,r9
+    xor rdx,rdx
+    div rbx
+
+    cmp rdx,0
+    je _return
+    mov rdx,1
+    _return:
+        pop rax
+        ret
 
 _maxPower:;used to determine the n in 2^n<=m where m is the upper limit
     ;this will return 2^n
