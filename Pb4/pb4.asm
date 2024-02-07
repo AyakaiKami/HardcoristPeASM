@@ -10,15 +10,20 @@ _start:
 
     ;we will need a function that checks if a number is a plaindrome
     
-    mov r9,999
-    mov r8,999
+    mov r9,99
+    mov r8,99
     ;when r8 goes lower then 100 r9 shoul decrease
     _findPalindrome:
-        mov rax,r9
-        mul r8
-        dec r8
-        push rax
-        call _isPlaindrome
+        ;cmp r8,99
+        ;jg _stillGood
+        ;dec r9
+        ;mov r8,r9
+        _stillGood:
+            mov rax,r9
+            mul r8
+            dec r8
+            push rax
+            call _isPlaindrome
         cmp rax,1
         jne _findPalindrome
 
