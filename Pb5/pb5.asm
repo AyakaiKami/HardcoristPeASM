@@ -10,15 +10,29 @@ _start:
     ;from 1 to 20
     mov r9,1 ;result
 
-    mov r8,2
+    mov rax,8
     mov rcx,20
-    
-    _loopIterate:
-        mov rax,r8
-        call _maxPower
-        mov rbx,
-        inc r8
-        
+    call _maxPower
+    call _isInRez
+    mov rax,rdx
+    call _print
+    ;_loopIterate:
+    ;    mov rax,r8
+    ;    call _maxPower
+    ;    call _isInRez
+    ;    cmp rdx,1
+    ;    je _skip
+    ;    mov rbx,rax
+    ;    mov rax,r9
+    ;    mul rbx
+    ;    mov r9,rax
+    ;    _skip:
+    ;    inc r8
+    ;    cmp  r8,rcx
+    ;    jle _loopIterate
+;
+    ;mov rax,r9
+    ;call _print
 
     mov rax,60
     mov rdi,0
