@@ -10,14 +10,14 @@ _start:
 
     ;we will need a function that checks if a number is a plaindrome
     
-    mov r9,99
-    mov r8,99
+    mov r9,999
+    mov r8,999
     ;when r8 goes lower then 100 r9 shoul decrease
     _findPalindrome:
-        ;cmp r8,99
-        ;jg _stillGood
-        ;dec r9
-        ;mov r8,r9
+        cmp r8,899
+        jg _stillGood
+        dec r9
+        mov r8,r9
         _stillGood:
             mov rax,r9
             mul r8
