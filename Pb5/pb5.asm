@@ -17,6 +17,20 @@ _start:
         mov rax,r8
         call _maxPower
         call _isInRez
+        
+        cmp rdx,0
+        jne _inAlready
+        mov rbx,rax
+        mov rax,r9
+        call _print
+        
+        mul rbx
+        mov r9,rax
+        _inAlready:
+        inc r8
+        cmp r8,rcx
+        jle _loopIterate
+
     mov rax,r9
     call _print
 
