@@ -9,7 +9,9 @@ _start:
     ;smallest number evenly divisible by all numbers 
     ;from 1 to 20
 
-    mov rax,11
+    mov rax,2
+    mov rcx,10
+    call _maxPower
     call _print
 
 
@@ -20,6 +22,24 @@ _start:
     syscall
 
 
+_maxPower:;used to determine the n in 2^n<=m where m is the upper limit
+    ;this will return 2^n
+    ;rax will hold 2
+    ;rcx will hold m
+    
+    push rbx
+
+    mov rbx,rax
+    
+    _loopPower:
+        mul rbx
+        cmp rax,rcx
+        jle _loopPower
+    div rbx
+
+    pop rbx
+
+    ret
 _print:
     push rax
     push rbx
