@@ -10,37 +10,24 @@ _start:
     ;from 1 to 20
     mov r9,1 ;result
 
-    mov rax,8
+    mov r8,2
     mov rcx,20
-    call _maxPower
-    call _isInRez
-    mov rax,rdx
+    _loopIterate:
+        xor rax,rax
+        mov rax,r8
+        call _maxPower
+        call _isInRez
+    mov rax,r9
     call _print
-    ;_loopIterate:
-    ;    mov rax,r8
-    ;    call _maxPower
-    ;    call _isInRez
-    ;    cmp rdx,1
-    ;    je _skip
-    ;    mov rbx,rax
-    ;    mov rax,r9
-    ;    mul rbx
-    ;    mov r9,rax
-    ;    _skip:
-    ;    inc r8
-    ;    cmp  r8,rcx
-    ;    jle _loopIterate
-;
-    ;mov rax,r9
-    ;call _print
 
     mov rax,60
     mov rdi,0
     syscall
 
-_isInRez:
+_isInRez:;0 means rax is in r9 already
+         ;1 means rax is not in r9 
     push rax
-    
+    mov rbx,rax
     mov rax,r9
     xor rdx,rdx
     div rbx
