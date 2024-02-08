@@ -11,7 +11,7 @@ _start:
     ;iterate through numberes
     ;when we find the n-th prime number we stop
 
-    mov r9,6;n
+    mov r9,10001;n
     mov r8,2;iterator
     mov r10,0;prime number index
 
