@@ -13,24 +13,22 @@ _start:
 
     mov r9,6;n
     mov r8,2;iterator
-    mov r10,0;prime number index
-;
-;    _loopIterate:
-;        mov rax,r8
-;        call _isPrim
-;        cmp rax,0;is not prim
-;        je _next
-;        inc r10
-;        cmp r10,r9
-;        je _out
-;
-;        _next:
-;        inc r8
-;        jmp _loopIterate
-;
-;    _out:
+    mov r10,1;prime number index
+
+    _loopIterate:
+        mov rax,r8
+        call _isPrim
+        cmp rax,0;is not prim
+        je _next
+        inc r10
+        _next:
+        cmp r10,r9
+        je _out
+        inc r8
+        jmp _loopIterate
+
+    _out:
     ;print result
-    mov r8,4
     mov rax,r8
     call _isPrim
     call _print
@@ -42,11 +40,12 @@ _start:
 
 _isPrim:;check if prim function
     
-    push rax
-    mov rbx,1;iterator
+    mov rcx,rax;copy
+    mov rbx,2;iterator
+    cmp rax,2
+    je _trueIsPrim
     _loopPrim:
-        pop rax
-        push rax
+        mov rax,rcx
         xor rdx,rdx
         div rbx
         cmp rdx,0
@@ -57,8 +56,7 @@ _isPrim:;check if prim function
         jmp _loopPrim
 
     _outIsPrim:
-    pop rbx
-    cmp rax,rbx
+    cmp rcx,rbx
     je _trueIsPrim
     mov rax,0
     ret
