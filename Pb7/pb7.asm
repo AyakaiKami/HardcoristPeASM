@@ -14,21 +14,25 @@ _start:
     mov r9,6;n
     mov r8,2;iterator
     mov r10,0;prime number index
-    _loopIterate:
-        mov rax,r8
-        call _isPrim
-        cmp rax,0;is not prim
-        je _next
-        inc r10
-        cmp r10,r9
-        je _out
-
-        _next:
-        inc r8
-        jump _loopIterate
-
-    _out:
-    mov r8,10
+;
+;    _loopIterate:
+;        mov rax,r8
+;        call _isPrim
+;        cmp rax,0;is not prim
+;        je _next
+;        inc r10
+;        cmp r10,r9
+;        je _out
+;
+;        _next:
+;        inc r8
+;        jmp _loopIterate
+;
+;    _out:
+    ;print result
+    mov r8,4
+    mov rax,r8
+    call _isPrim
     call _print
 
     ;exit
@@ -36,8 +40,34 @@ _start:
     mov rdi,0
     syscall
 
+_isPrim:;check if prim function
+    
+    push rax
+    mov rbx,1;iterator
+    _loopPrim:
+        pop rax
+        push rax
+        xor rdx,rdx
+        div rbx
+        cmp rdx,0
+        je _outIsPrim
+        inc rbx
+        cmp rbx,rax
+        jge _outIsPrim
+        jmp _loopPrim
 
-_print:
+    _outIsPrim:
+    pop rbx
+    cmp rax,rbx
+    je _trueIsPrim
+    mov rax,0
+    ret
+    _trueIsPrim:
+    mov rax,1
+    ret
+
+
+_print:;print function
     mov rcx,digitSpace
     mov rbx,10
     mov [rcx],rbx
