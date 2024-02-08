@@ -30,7 +30,7 @@ _start:
     ;_out:
     ;;print result
     ;mov rax,r8
-    mov rax,5
+    mov rax,7
     call _isPrim
     call _print
 
