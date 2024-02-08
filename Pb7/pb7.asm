@@ -11,27 +11,26 @@ _start:
     ;iterate through numberes
     ;when we find the n-th prime number we stop
 
-    ;mov r9,6;n
-    ;mov r8,2;iterator
-    ;mov r10,0;prime number index
-;
-    ;_loopIterate:
-    ;    mov rax,r8
-    ;    call _isPrim
-    ;    cmp rax,0;is not prim
-    ;    je _next
-    ;    inc r10
-    ;    _next:
-    ;    cmp r10,r9
-    ;    je _out
-    ;    inc r8
-    ;    jmp _loopIterate
-;
-    ;_out:
-    ;;print result
-    ;mov rax,r8
-    mov rax,7
-    call _isPrim
+    mov r9,6;n
+    mov r8,2;iterator
+    mov r10,0;prime number index
+
+    _loopIterate:
+        mov rax,r8
+        call _isPrim
+        cmp rax,0;is not prim
+        je _next
+        inc r10
+        _next:
+        cmp r10,r9
+        je _out
+        inc r8
+        jmp _loopIterate
+
+    _out:
+    ;print result
+    mov rax,r8
+    
     call _print
 
     ;exit
@@ -41,30 +40,29 @@ _start:
 
 _isPrim:;check if prim function
     
-    mov rcx,rax;copy
-    mov rbx,2;iterator
-    cmp rax,2
-    je _trueIsPrim
-    _loopPrim:
-        mov rax,rcx
-        xor rdx,rdx
-        div rbx
-        cmp rdx,0
-        je _outIsPrim
-        inc rbx
-        cmp rbx,rax
-        je _outIsPrim
-        jmp _loopPrim
+   mov rcx,rax
+   mov rbx,2
+   cmp rax,rbx
+   je _true
 
-    _outIsPrim:
-    cmp rcx,rbx
-    je _trueIsPrim
-    mov rax,0
-    ret
-    _trueIsPrim:
-    mov rax,1
-    ret
+   _loopP:
+    xor rdx,rdx
+    div rbx
+    cmp rdx,0
+    je _false
+    inc rbx
+    mov rax,rcx
+    cmp rbx,rcx
+    je _true
+    jmp _loopP
 
+    _false:
+        mov rax,0
+        ret
+
+    _true:
+        mov rax,1
+        ret
 
 _print:;print function
     mov rcx,digitSpace
