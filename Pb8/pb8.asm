@@ -17,23 +17,24 @@ _start:
     ;we read the digits in a buffer
     call _openFile
     call _readFile
-
+    call _closeFile
     mov r10,0;rez
 
     ;loop for iterating through the digits
     mov [bufferPos],rcx
     _loop:
         mov rcx,[bufferPos]
-        mov al,[rcx]
+        call _prod
         inc rcx
         mov [bufferPos],rcx
         cmp rax,0
         je _close
-        sub al,48
-        call _printNumber
         jmp _loop
+    ;print rez
+    mov rax,r10
+    call _printNumber
+    
     _close:
-    call _closeFile
     
     ;exit call
     mov rax,60
@@ -43,7 +44,6 @@ _start:
 
 _prod:
     push rcx
-    push [bufferPos]
     mov rbx,0;iterator
     mov r9,1;produs
 
@@ -56,7 +56,7 @@ _prod:
         je _endProd
         sub al,48
         xor r12,r12
-        mov r12,al
+        mov r12,rax
         mov rax,r9
         mul r12
         mov r9,rax
@@ -64,17 +64,19 @@ _prod:
         cmp rbx,4
         jl _loopP
 
-    
-    pop [bufferPos]
-    pop rcx
+    cmp r9,r10
+    jle _endProd
+    mov r10,r9
+
     _endProd:
+    pop rcx
 ret
 _readFile:
     push rax
     mov rax,0
     pop rdi
     mov rsi,buffer
-    mov rdx,16
+    mov rdx,1024
     syscall
 
     mov rcx,buffer
