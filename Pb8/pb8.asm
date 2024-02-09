@@ -12,9 +12,15 @@ section .text
 
 _start:
     ;https://projecteuler.net/problem=8   
-    mov rax,10
+
+    ;list of digits will be stored in input.txt
+    ;we read the digits in a buffer
     call _openFile
     call _readFile
+
+    mov r10,0;rez
+
+    ;loop for iterating through the digits
     mov [bufferPos],rcx
     _loop:
         mov rcx,[bufferPos]
