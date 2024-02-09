@@ -62,8 +62,8 @@ _openFile:
     mov rsi,0
     mov rdx,0
     syscall
-    test rax,rax
-    js _error 
+    ;test rax,rax
+    ;js _error 
     mov [fd_read],rax
 ret
 
