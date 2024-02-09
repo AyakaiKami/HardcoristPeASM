@@ -40,6 +40,35 @@ _start:
     mov rdi,0
     syscall
 
+
+_prod:
+    push rcx
+    push [bufferPos]
+    mov rbx,0;iterator
+    mov r9,1;produs
+
+    _loopP:
+        mov rcx,[bufferPos]
+        mov al,[rcx]
+        inc rcx
+        mov [bufferPos],rcx
+        cmp rax,0
+        je _endProd
+        sub al,48
+        xor r12,r12
+        mov r12,al
+        mov rax,r9
+        mul r12
+        mov r9,rax
+        inc rbx
+        cmp rbx,4
+        jl _loopP
+
+    
+    pop [bufferPos]
+    pop rcx
+    _endProd:
+ret
 _readFile:
     push rax
     mov rax,0
