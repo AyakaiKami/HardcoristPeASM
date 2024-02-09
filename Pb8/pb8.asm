@@ -52,6 +52,7 @@ _prod:
         mov al,[rcx]
         inc rcx
         mov [bufferPos],rcx
+        call _printNumber
         cmp rax,0
         je _endProd
         sub al,48
