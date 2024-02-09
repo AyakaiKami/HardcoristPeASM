@@ -1,15 +1,19 @@
 section .bss
     digitSpace resb 100
     digitSpacePos resb 8
-
+    fd_read resb 8
+section .data
+    path db 'input.txt', 0
+    lenfilename equ $ - path
 section .text
     global _start
 
 _start:
     ;https://projecteuler.net/problem=8   
     mov rax,10
+    call _openFile
     call _print
-
+    call _closeFile
     ;exit call
     mov rax,60
     mov rdi,0
@@ -50,3 +54,27 @@ _print:
         cmp rcx,digitSpace
         jg _printString
     ret
+
+
+_openFile:
+    mov rax,2
+    mov rdi,path
+    mov rsi,0
+    mov rdx,0
+    syscall
+    test rax,rax
+    js _error 
+    mov [fd_read],rax
+ret
+
+_closeFile:
+    mov rax,3
+    mov rdi,[fd_read]
+    syscall
+
+ret
+_error:
+    mov rax,60
+    mov rdi,1
+    syscall
+ret
