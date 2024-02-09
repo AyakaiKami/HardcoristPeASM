@@ -14,14 +14,15 @@ _start:
     mov rax,10
     call _openFile
     call _readFile
-    mov rdi,0
+    mov rdi,1
     _loop:
-        mov rax,[rcx+rdi*8]
+        mov al,[rcx+rdi*8]
         inc rdi
         cmp rax,0
         je _close
+        sub rax,48
         call _printNumber
-        ;jmp _loop
+        jmp _loop
     _close:
     call _closeFile
     
