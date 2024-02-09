@@ -2,8 +2,9 @@ section .bss
     digitSpace resb 100
     digitSpacePos resb 8
     fd_read resb 8
+    buffer resb 1024
 section .data
-    path db 'input.txt', 0
+    path db 'Pb8/input.txt', 0
     lenfilename equ $ - path
 section .text
     global _start
@@ -12,15 +13,35 @@ _start:
     ;https://projecteuler.net/problem=8   
     mov rax,10
     call _openFile
-    call _print
+    call _readFile
+    mov rdi,0
+    _loop:
+        mov rax,[rcx+rdi*8]
+        inc rdi
+        cmp rax,0
+        je _close
+        call _printNumber
+        ;jmp _loop
+    _close:
     call _closeFile
+    
     ;exit call
     mov rax,60
     mov rdi,0
     syscall
 
+_readFile:
+    push rax
+    mov rax,0
+    pop rdi
+    mov rsi,buffer
+    mov rdx,16
+    syscall
 
-_print:
+    lea rcx,buffer
+    ret
+
+_printNumber:
     mov rcx,digitSpace
     mov rbx,10
     mov [rcx],rbx
