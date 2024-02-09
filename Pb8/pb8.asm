@@ -16,11 +16,11 @@ _start:
     call _readFile
     mov rdi,1
     _loop:
-        mov al,[rcx+rdi*8]
-        inc rdi
+        mov rax,[rcx]
+        inc rcx
         cmp rax,0
         je _close
-        sub rax,48
+        sub al,48
         call _printNumber
         jmp _loop
     _close:
