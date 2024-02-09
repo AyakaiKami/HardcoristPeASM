@@ -23,8 +23,8 @@ _start:
     ;loop for iterating through the digits
     mov [bufferPos],rcx
     _loop:
-        mov rcx,[bufferPos]
         call _prod
+        mov rcx,[bufferPos]
         inc rcx
         mov [bufferPos],rcx
         cmp rax,0
@@ -32,7 +32,7 @@ _start:
         jmp _loop
     ;print rez
     mov rax,r10
-    call _printNumber
+    ;call _printNumber
     
     _close:
     
@@ -52,7 +52,6 @@ _prod:
         mov al,[rcx]
         inc rcx
         mov [bufferPos],rcx
-        call _printNumber
         cmp rax,0
         je _endProd
         sub al,48
@@ -65,6 +64,8 @@ _prod:
         cmp rbx,4
         jl _loopP
 
+    mov rax,r9
+    call _printNumber
     cmp r9,r10
     jle _endProd
     mov r10,r9
@@ -84,6 +85,13 @@ _readFile:
     ret
 
 _printNumber:
+    push rax
+    push rbx
+    push rcx
+    push rdx
+    push rdi
+    push rsi
+
     mov rcx,digitSpace
     mov rbx,10
     mov [rcx],rbx
@@ -116,6 +124,13 @@ _printNumber:
         mov [digitSpacePos],rcx
         cmp rcx,digitSpace
         jg _printString
+
+    pop rsi
+    pop rdi
+    pop rdx
+    pop rcx
+    pop rbx
+    pop rax
     ret
 
 
