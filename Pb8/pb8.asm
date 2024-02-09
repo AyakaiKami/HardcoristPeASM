@@ -3,6 +3,7 @@ section .bss
     digitSpacePos resb 8
     fd_read resb 8
     buffer resb 1024
+    bufferPos resb 8
 section .data
     path db 'Pb8/input.txt', 0
     lenfilename equ $ - path
@@ -14,10 +15,12 @@ _start:
     mov rax,10
     call _openFile
     call _readFile
-    mov rdi,1
+    mov [bufferPos],rcx
     _loop:
-        mov rax,[rcx]
+        mov rcx,[bufferPos]
+        mov al,[rcx]
         inc rcx
+        mov [bufferPos],rcx
         cmp rax,0
         je _close
         sub al,48
@@ -39,7 +42,7 @@ _readFile:
     mov rdx,16
     syscall
 
-    lea rcx,buffer
+    mov rcx,buffer
     ret
 
 _printNumber:
