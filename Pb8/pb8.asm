@@ -34,18 +34,17 @@ _start:
         ;prod of n digits
         call _prod    
         cmp rax,r10
-        jle _nextIt
+        jl _nextIt
         mov r10,rax
         _nextIt:
         jmp _loop
     
     ;print rez
+    _close:
     mov rax,r10
     call _printNumber
     
     call _closeFile
-    _close:
-    
     ;exit call
     mov rax,60
     mov rdi,0
@@ -58,7 +57,6 @@ _prod:
     push rcx
     dec rcx
     _loopP:
-        inc rdi
         xor rbx,rbx
         mov [bufferPos],rcx
         mov rcx,[bufferPos]
@@ -70,11 +68,12 @@ _prod:
         je _loopP
         sub bl,48
         mul rbx
-        cmp rdi,4
-        jle _loopP
+        inc rdi
+        cmp rdi,13
+        jl _loopP
 
     _exitProd:
-    call _printNumber
+    ;call _printNumber
     pop rcx
     ret
 
@@ -146,8 +145,8 @@ _openFile:
     mov rsi,0
     mov rdx,0
     syscall
-    ;test rax,rax
-    ;js _error 
+    test rax,rax
+    js _error 
     mov [fd_read],rax
 ret
 
