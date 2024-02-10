@@ -17,26 +17,28 @@ _start:
     ;we read the digits in a buffer
     call _openFile
     call _readFile
-    call _closeFile
+    ;call _closeFile
     mov r10,0;rez
 
+    xor rax,rax
     ;loop for iterating through the digits
     mov [bufferPos],rcx
     _loop:
-        ;call _prod
-        xor rax,rax
-        mov al,[rcx]
-        call _printNumber
         mov rcx,[bufferPos]
+        mov al,[rcx]
+        cmp al,0
+        je _close
         inc rcx
         mov [bufferPos],rcx
-        cmp rax,0
-        je _close
+        ;sub al,48
+        call _printNumber
+        xor al,al
         jmp _loop
     ;print rez
     mov rax,r10
     ;call _printNumber
     
+    call _closeFile
     _close:
     
     ;exit call
