@@ -22,21 +22,20 @@ _start:
 
     xor rax,rax
     ;loop for iterating through the digits
-    mov [bufferPos],rcx
     _loop:
+        mov [bufferPos],rcx
         mov rcx,[bufferPos]
         mov al,[rcx]
+        inc rcx
         cmp al,0
         je _close
-        inc rcx
-        mov [bufferPos],rcx
-        ;sub al,48
-        call _printNumber
-        xor al,al
+        cmp al,10
+        je _loop
         jmp _loop
+    
     ;print rez
     mov rax,r10
-    ;call _printNumber
+    call _printNumber
     
     call _closeFile
     _close:
@@ -46,38 +45,6 @@ _start:
     mov rdi,0
     syscall
 
-
-_prod:
-    push rcx
-    mov rbx,0;iterator
-    mov r9,1;produs
-
-    _loopP:
-        mov rcx,[bufferPos]
-        mov al,[rcx]
-        inc rcx
-        mov [bufferPos],rcx
-        cmp rax,0
-        je _endProd
-        sub al,48
-        xor r12,r12
-        mov r12,rax
-        mov rax,r9
-        mul r12
-        mov r9,rax
-        inc rbx
-        cmp rbx,4
-        jl _loopP
-
-    mov rax,r9
-    call _printNumber
-    cmp r9,r10
-    jle _endProd
-    mov r10,r9
-
-    _endProd:
-    pop rcx
-ret
 _readFile:
     push rax
     mov rax,0
