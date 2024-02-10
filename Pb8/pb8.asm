@@ -126,7 +126,7 @@ _printNumber:
         dec rcx
         mov [digitSpacePos],rcx
         cmp rcx,digitSpace
-        jg _printString
+        jge _printString
 
     pop rsi
     pop rdi
