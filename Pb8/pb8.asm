@@ -51,6 +51,34 @@ _start:
     mov rdi,0
     syscall
 
+_prod:
+    ;rez in rax
+    mov rax,1
+    mov rdi,0
+    push rcx
+    dec rcx
+    _loopP:
+        inc rdi
+        xor rbx,rbx
+        mov [bufferPos],rcx
+        mov rcx,[bufferPos]
+        mov bl,[rcx]
+        inc rcx
+        cmp bl,0
+        je _exitProd
+        cmp bl,10
+        je _loopP
+        sub bl,48
+        mul rbx
+        cmp rdi,4
+        jle _loopP
+
+    _exitProd:
+    call _printNumber
+    pop rcx
+    ret
+
+
 _readFile:
     push rax
     mov rax,0
