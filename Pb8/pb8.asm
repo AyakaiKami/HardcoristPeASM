@@ -23,7 +23,10 @@ _start:
     ;loop for iterating through the digits
     mov [bufferPos],rcx
     _loop:
-        call _prod
+        ;call _prod
+        xor rax,rax
+        mov al,[rcx]
+        call _printNumber
         mov rcx,[bufferPos]
         inc rcx
         mov [bufferPos],rcx
