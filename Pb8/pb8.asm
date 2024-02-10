@@ -31,6 +31,12 @@ _start:
         je _close
         cmp al,10
         je _loop
+        ;prod of n digits
+        call _prod    
+        cmp rax,r10
+        jle _nextIt
+        mov r10,rax
+        _nextIt:
         jmp _loop
     
     ;print rez
