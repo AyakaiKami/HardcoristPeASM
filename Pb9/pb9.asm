@@ -7,6 +7,9 @@ section .text
 _start:
     ;https://projecteuler.net/problem=9
     mov rax,10
+    mov r10,1 ;a
+    mov r11,2;b
+    mov r12,3;c
     call _printNumber
 
     mov rax,60
@@ -14,6 +17,13 @@ _start:
     syscall
 
 _printNumber:
+    push rax
+    push rbx
+    push rcx
+    push rdx
+    push rdi
+    push rsi
+
     mov rcx,digitSpace
     mov rbx,10
     mov [rcx],rbx
@@ -46,4 +56,10 @@ _printNumber:
         mov [digitSpacePos],rcx
         cmp rcx,digitSpace
         jge _printString
+    pop rsi
+    pop rdi
+    pop rdx
+    pop rcx
+    pop rbx
+    pop rax
 ret
