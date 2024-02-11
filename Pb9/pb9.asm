@@ -53,12 +53,12 @@ _start:
                 
 
     _rez:
-        ;mov rax,r10
-        ;call _printNumber
-        ;mov rax,r11
-        ;call _printNumber
-        ;mov rax,r12
-        ;call _printNumber
+        mov rax,r10
+        call _printNumber
+        mov rax,r11
+        call _printNumber
+        mov rax,r12
+        call _printNumber
 
         xor rax,rax
         mov rax,r10
@@ -77,7 +77,9 @@ _printNumber:
     push rdx
     push rdi
     push rsi
-
+    push r10
+    push r11
+    push r12
     mov rcx,digitSpace
     mov rbx,10
     mov [rcx],rbx
@@ -110,6 +112,9 @@ _printNumber:
         mov [digitSpacePos],rcx
         cmp rcx,digitSpace
         jge _printString
+    pop r12
+    pop r11
+    pop r10
     pop rsi
     pop rdi
     pop rdx
