@@ -6,12 +6,28 @@ section .text
 
 _start:
     ;https://projecteuler.net/problem=9
-    mov rax,10
     mov r10,1 ;a
     mov r11,2;b
     mov r12,3;c
-    call _printNumber
+    
+    _loopA:
+        _loopB:
+            _loopC:
+                xor rdx,rdx
+                mov rax,r10
+                mul r11
+                mov rbx,500
+                cmp rax,rbx
+                jl _nextB
+                div rbx
+                cmp rdx,0
+                jne _nextB
 
+                mov rsi,rax ;temp a*b/500
+                
+
+
+    ;exit call
     mov rax,60
     mov rdi,0
     syscall
