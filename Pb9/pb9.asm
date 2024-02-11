@@ -7,14 +7,12 @@ section .text
 _start:
     ;https://projecteuler.net/problem=9
     mov r10,1 ;a
-    mov r11,2;b
-    mov r12,3;c
     
     _loopA:
-        mov r11,r10
+        mov r11,r10;b=a+1
         inc r11
         _loopB:
-            mov r12,r11
+            mov r12,r11;c=b+1
             inc r12
             _loopC:
                 xor rdx,rdx
@@ -39,12 +37,12 @@ _start:
             _nextB:
             inc r11
             cmp r11,499
-            jg _nextA
+            jge _nextA
             jmp _loopB
         _nextA:
             inc r10
             cmp r10,498
-            jg _rez
+            jge _rez
             jmp _loopA
 
                 
