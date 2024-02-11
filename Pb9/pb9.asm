@@ -6,7 +6,7 @@ section .text
 
 _start:
     ;https://projecteuler.net/problem=9
-    mov r10,1 ;a
+    mov r10,2 ;a
     
     _loopA:
         mov r11,r10;b=a+1
@@ -16,6 +16,7 @@ _start:
             inc r12
             _loopC:
                 xor rdx,rdx
+                xor rax,rax
                 mov rax,r10
                 mul r11
                 mov rbx,1000
@@ -25,23 +26,37 @@ _start:
                 cmp rdx,0
                 jne _nextB
 
-                mov rsi,500 
-                cmp r12,rsi
-                jge _nextB
+                add rax,r12
+                cmp rax,500
+                jne _nextC
+                xor rax,rax
+                mov rax,r10
+                mul r10
+                mov rdi,rax
+                xor rax,rax
+                mov rax,r11
+                mul r11
+                add rdi,rax
 
-                sub rsi,r12
-                cmp rax,rsi
+                xor rax,rax
+                mov rax,r12
+                mul r12
+                cmp rax,rdi
                 je _rez
+                _nextC:
                 inc r12
+                cmp r12,250
+                jge _nextB
                 jmp _loopC
+                
             _nextB:
             inc r11
-            cmp r11,499
+            cmp r11,250
             jge _nextA
             jmp _loopB
         _nextA:
             inc r10
-            cmp r10,498
+            cmp r10,250
             jge _rez
             jmp _loopA
 
@@ -54,6 +69,7 @@ _start:
         call _printNumber
         mov rax,r12
         call _printNumber
+
         xor rax,rax
         mov rax,r10
         mul r11
