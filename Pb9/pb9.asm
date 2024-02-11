@@ -6,7 +6,7 @@ section .text
 
 _start:
     ;https://projecteuler.net/problem=9
-    mov r10,2 ;a
+    mov r10,1 ;a
     
     _loopA:
         mov r11,r10;b=a+1
@@ -15,60 +15,50 @@ _start:
             mov r12,r11;c=b+1
             inc r12
             _loopC:
-                xor rdx,rdx
-                xor rax,rax
-                mov rax,r10
-                mul r11
+               mov rax,r10;a^2
+               mul r10
+               mov r15,rax
+               
+               mov rax,r11
+               mul r11
+               add r15,rax;a^2 + b^2
+               
+               mov rax,r12;c^2
+               mul r12
+               cmp rax,r15;a^2 + b^2 =c^2
+               jne _nextC
+                mov rax,r12
+                add rax,r11
+                add rax,r10
                 mov rbx,1000
                 cmp rax,rbx
-                jl _nextB
-                div rbx
-                cmp rdx,0
-                jne _nextB
-
-                add rax,r12
-                cmp rax,500
-                jne _nextC
-                xor rax,rax
-                mov rax,r10
-                mul r10
-                mov rdi,rax
-                xor rax,rax
-                mov rax,r11
-                mul r11
-                add rdi,rax
-
-                xor rax,rax
-                mov rax,r12
-                mul r12
-                cmp rax,rdi
                 je _rez
-                _nextC:
-                inc r12
-                cmp r12,250
-                jge _nextB
-                jmp _loopC
+            _nextC:
+            inc r12
+            cmp r12,1000
+            jge _nextB
+            jmp _loopC
                 
-            _nextB:
-            inc r11
-            cmp r11,250
-            jge _nextA
-            jmp _loopB
-        _nextA:
-            inc r10
-            cmp r10,250
-            jge _rez
-            jmp _loopA
+        _nextB:
+        inc r11
+        cmp r11,1000
+        jge _nextA
+        jmp _loopB
+    _nextA:
+        inc r10
+        cmp r10,1000
+        jge _rez
+        jmp _loopA
 
                 
 
     _rez:
-        mov rax,r10
-        call _printNumber
-        mov rax,r11
-        call _printNumber
-        mov rax,r12
-        call _printNumber
+        ;mov rax,r10
+        ;call _printNumber
+        ;mov rax,r11
+        ;call _printNumber
+        ;mov rax,r12
+        ;call _printNumber
 
         xor rax,rax
         mov rax,r10
