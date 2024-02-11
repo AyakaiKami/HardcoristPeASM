@@ -11,22 +11,56 @@ _start:
     mov r12,3;c
     
     _loopA:
+        mov r11,r10
+        inc r11
         _loopB:
+            mov r12,r11
+            inc r12
             _loopC:
                 xor rdx,rdx
                 mov rax,r10
                 mul r11
-                mov rbx,500
+                mov rbx,1000
                 cmp rax,rbx
                 jl _nextB
                 div rbx
                 cmp rdx,0
                 jne _nextB
 
-                mov rsi,rax ;temp a*b/500
+                mov rsi,500 
+                cmp r12,rsi
+                jge _nextB
+
+                sub rsi,r12
+                cmp rax,rsi
+                je _rez
+                inc r12
+                jmp _loopC
+            _nextB:
+            inc r11
+            cmp r11,499
+            jg _nextA
+            jmp _loopB
+        _nextA:
+            inc r10
+            cmp r10,498
+            jg _rez
+            jmp _loopA
+
                 
 
-
+    _rez:
+        mov rax,r10
+        call _printNumber
+        mov rax,r11
+        call _printNumber
+        mov rax,r12
+        call _printNumber
+        xor rax,rax
+        mov rax,r10
+        mul r11
+        mul r12
+        call _printNumber
     ;exit call
     mov rax,60
     mov rdi,0
