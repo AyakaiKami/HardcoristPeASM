@@ -24,6 +24,32 @@ _print:
     mov [digitSpacePos],rcx
 
     _stringMakeLoop:
-        mov rcx,[digitSpacePos]
+        ;put character in place
         xor rdx,rdx
         div rbx
+        add rdx,48
+        mov rcx,[digitSpacePos]
+        mov [rcx],dl
+        ;move index
+        inc rcx
+        mov [digitSpacePos],rcx
+        cmp rax,0
+        jne _stringMakeLoop
+
+    _printString:
+        mov rcx,[digitSpacePos]
+        mov rax,1
+        mov rsi,rcx
+        mov rdi,1
+        mov rdx,1
+        syscall
+
+        mov rcx,[digitSpacePos]
+        dec rcx
+        mov [digitSpacePos],rcx
+        cmp rcx,digitSpace
+        jge _printString
+
+ret
+
+    
