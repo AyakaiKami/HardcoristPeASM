@@ -1,13 +1,17 @@
 section .bss
     digitSpace resb 100
     digitSpacePos resb 8
-
+    primes resb 1024
+    primesPos resb 8
+    primesSize resb 8
 section .text
     global _start
 
 _start:
     ;https://projecteuler.net/problem=10
     ;sum of primes
+    mov rbx,0
+    mov [primesSize],rbx
     mov rax,10
     call _print
     ;exit call
@@ -15,6 +19,8 @@ _start:
     mov rdi,0
     syscall
 
+_addPrime:
+    ret
 
 _print:
     mov rcx,digitSpace
