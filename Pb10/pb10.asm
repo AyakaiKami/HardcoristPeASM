@@ -5,4 +5,10 @@ section .bss
 section .text
     global _start
 
-_start
+_start:
+
+
+    ;exit call
+    mov rax,60
+    mov rdi,0
+    syscall
