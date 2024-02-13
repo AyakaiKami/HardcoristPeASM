@@ -19,7 +19,21 @@ _start:
     mov rdi,0
     syscall
 
-_addPrime:
+_addPrime:;we will add rax
+    mov r13,[primesSize]
+    mov rcx,primes
+    mov [primesPos],rcx
+
+    _loopPrime:
+        mov rbx,[rcx]
+        cmp bl,0
+        je _endLoopPrime
+
+
+    _endLoopPrime:
+        push rax
+        add rax,48
+        mov [rcx],al
     ret
 
 _print:
@@ -29,6 +43,7 @@ _print:
     inc rcx 
     mov [digitSpacePos],rcx
 
+    mov rbx,10
     _stringMakeLoop:
         ;put character in place
         xor rdx,rdx
