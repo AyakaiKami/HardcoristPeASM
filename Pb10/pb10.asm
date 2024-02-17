@@ -14,19 +14,21 @@ _start:
     mov eax,0
     mov [primes],eax
     mov [primesSize],eax
+    mov eax,4
+    mov [primes+32],eax
 
 
     xor r10,r10
-    mov r11,10;limit/n
-
-    mov rcx,2;iterator
+    mov r11,4;limit/n
+    xor rcx,rcx
+    mov ecx,2;iterator
     _loop:
-        call _isPrim
+        call _isPrim 
         cmp rax,1
         jne _next
         add r10,rcx
         _next:
-        inc rcx 
+        inc ecx 
         cmp rcx,r11
         jle _loop
 
@@ -40,39 +42,16 @@ _start:
 
 ;is Prim function input in rax
 _isPrim:
-        ;rez is in r15
-        mov r15,1
-        mov rbx,0
-        cmp [primesSize],rbx; 
-        je _endisPrim
-        mov rax,[primes]
+        push r10
+        push r11
+        push rcx
+        mov rbx,32
+        xor rax,rax
+        mov eax,[primes+rbx]
         call _print
-        mov r12d,0
-        _loopPrim:
-            xor r10,r10
-            mov r10d,[primes+r12d]
-            xor rax,rax
-            mov eax,ecx
-            xor edx,edx
-            div r10d
-            cmp edx,0
-            jne _nextPrim
-            mov r15,0;not prim
-            jmp _endisPrim
-            _nextPrim: 
-            inc r12d
-            cmp r12d,[primesSize]
-            jl _loopPrim
-
-        _endisPrim:
-        cmp r15,0
-        je _ret
-        mov rbx,[primesSize]
-        inc rbx
-        mov [primesSize],rbx
-        mov [primes+rbx],ecx
-        _ret:
-        mov rax,r15
+        pop rcx
+        pop r11
+        pop r10
     ret
 
 
