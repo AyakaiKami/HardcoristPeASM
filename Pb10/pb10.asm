@@ -45,10 +45,20 @@ _isPrim:
         push r10
         push r11
         push rcx
-        mov rbx,32
-        xor rax,rax
-        mov eax,[primes+rbx]
-        call _print
+        
+        mov rbx,0
+
+        cmp [primesSize],0
+        je _primTrue
+
+        _loopPrim:
+            xor rax,rax 
+            
+
+
+
+        je _primTrue:
+
         pop rcx
         pop r11
         pop r10
