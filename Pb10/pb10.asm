@@ -37,6 +37,8 @@ _start:
     mov rax,60
     mov rdi,0
     syscall
+
+;is Prim function input in rax
 _isPrim:
         ;rez is in rax
         mov rax,1
@@ -54,9 +56,12 @@ _isPrim:
         mov [primes+r15*32],ecx
         _ret:
     ret
+
+
+;print function  
 _print:
     mov rcx,digitSpace
-    mov ,10
+    mov rbx,10
     mov [rcx],rbx
     inc rcx 
     mov [digitSpacePos],rcx
