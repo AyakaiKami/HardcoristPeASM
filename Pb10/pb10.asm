@@ -45,9 +45,13 @@ _isPrim:
         mov rbx,0
         cmp [primesSize],rbx; 
         je _endisPrim
+        mov rax,[primes]
+        call _print
         mov r12d,0
         _loopPrim:
+            xor r10,r10
             mov r10d,[primes+r12d]
+            xor rax,rax
             mov eax,ecx
             xor edx,edx
             div r10d
@@ -127,6 +131,7 @@ _print:
     pop rdi
     pop rdx
     pop rcx
+    pop rbx
     pop rax
 ret
 
