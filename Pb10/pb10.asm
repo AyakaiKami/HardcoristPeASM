@@ -47,22 +47,40 @@ _isPrim:
         push rcx
         
         mov rbx,0
-
-        cmp [primesSize],0
+        mov r10,0
+        cmp [primesSize],rbx
         je _primTrue
 
         _loopPrim:
             xor rax,rax 
-            
+            xor rdx,rdx
+            mov rdi,[primes+rbx]
+            div rdi
+            cmp rdx,0
+            jne _nextLoopPrim
+            jmp _primFalse
+            _nextLoopPrim:
+            add rbx,32
+            inc r10
+            cmp r10,[primesSize]
+            jle _loopPrim
 
-
-
-        je _primTrue:
-
-        pop rcx
-        pop r11
-        pop r10
-    ret
+        _primTrue:
+            mov rax,1
+            mov [primes+rbx],ecx
+            mov rbx,[primesSize]
+            inc rbx
+            mov [primesSize],rbx
+            pop rcx
+            pop r11
+            pop r10
+            ret
+        _primFalse:
+            mov rax,0
+            pop rcx
+            pop r11
+            pop r10
+            ret
 
 
 ;print function  
