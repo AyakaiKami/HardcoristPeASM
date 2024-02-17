@@ -43,7 +43,7 @@ _isPrim:
         ;rez is in r15
         mov r15,1
         mov rbx,0
-        cmp [primesSize],ebx; 
+        cmp [primesSize],rbx; 
         je _endisPrim
         
         _loopPrim:
@@ -55,6 +55,7 @@ _isPrim:
             mov r15,0;not prim
             jmp _endisPrim
             _nextPrim: 
+            cmp 
 
         _endisPrim:
         cmp rax,0
