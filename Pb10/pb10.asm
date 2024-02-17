@@ -1,9 +1,9 @@
 section .bss
     digitSpace resb 100
     digitSpacePos resb 8
-    primes resb 1024
-    primesPos resb 32
-    primesSize resb 32
+    primes resb 65536
+    primesPos resb 64
+    primesSize resb 64
 section .text
     global _start
 
@@ -26,6 +26,7 @@ _start:
         jne _next
         add r10,rcx
         _next:
+        inc rcx 
         cmp rcx,r11
         jle _loop
 
@@ -50,12 +51,12 @@ _isPrim:
         mov r15,[primesSize]
         inc r15
         mov [primesSize],r15
-        mov [primes+r15*32],rcx
+        mov [primes+r15*32],ecx
         _ret:
     ret
 _print:
     mov rcx,digitSpace
-    mov rbx,10
+    mov ,10
     mov [rcx],rbx
     inc rcx 
     mov [digitSpacePos],rcx
