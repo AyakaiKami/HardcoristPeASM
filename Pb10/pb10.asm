@@ -1,8 +1,7 @@
 section .bss
     digitSpace resb 100
     digitSpacePos resb 8
-    primes resb 65536
-    primesPos resb 64
+    primes resb 6553600
     primesSize resb 64
 section .text
     global _start
@@ -16,7 +15,7 @@ _start:
 
 
     xor r10,r10
-    mov r11,4;limit/n
+    mov r11,2000000;limit/n
     xor rcx,rcx
     mov ecx,2;iterator
     _loop:
@@ -45,15 +44,15 @@ _isPrim:
         
         mov rbx,0
         mov r10,0
-        cmp [primesSize],rbx
+        cmp rbx,[primesSize]
         je _primTrue
 
         _loopPrim:
             xor rax,rax 
             xor rdx,rdx
-            ;mov rax,rcx
-            mov rdi,[primes+rbx]
-            div rdi
+            mov eax,ecx
+            mov edi,[primes+rbx]
+            div edi
             cmp rdx,0
             jne _nextLoopPrim
             jmp _primFalse
@@ -61,7 +60,7 @@ _isPrim:
             add rbx,32
             inc r10
             cmp r10,[primesSize]
-            jle _loopPrim
+            jl _loopPrim
 
         _primTrue:
             mov rax,1
