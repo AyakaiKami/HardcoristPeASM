@@ -11,11 +11,8 @@ _start:
     ;https://projecteuler.net/problem=10
     ;sum of primes
     ;rez in r10
-    mov eax,0
-    mov [primes],eax
-    mov [primesSize],eax
-    mov eax,4
-    mov [primes+32],eax
+    mov rax,0
+    mov [primesSize],rax
 
 
     xor r10,r10
@@ -54,6 +51,7 @@ _isPrim:
         _loopPrim:
             xor rax,rax 
             xor rdx,rdx
+            ;mov rax,rcx
             mov rdi,[primes+rbx]
             div rdi
             cmp rdx,0
