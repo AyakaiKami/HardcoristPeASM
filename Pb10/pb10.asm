@@ -45,31 +45,46 @@ _isPrim:
         mov rbx,0
         cmp [primesSize],rbx; 
         je _endisPrim
-        
+        mov r12d,0
         _loopPrim:
+            mov r10d,[primes+r12d]
             mov eax,ecx
             xor edx,edx
-            div r10
-            cmp rdx,0
+            div r10d
+            cmp edx,0
             jne _nextPrim
             mov r15,0;not prim
             jmp _endisPrim
             _nextPrim: 
-            cmp 
+            inc r12d
+            cmp r12d,[primesSize]
+            jl _loopPrim
 
         _endisPrim:
-        cmp rax,0
+        cmp r15,0
         je _ret
         mov rbx,[primesSize]
         inc rbx
         mov [primesSize],rbx
         mov [primes+rbx],ecx
         _ret:
+        mov rax,r15
     ret
 
 
 ;print function  
 _print:
+    push rax
+    push rcx
+    push rbx
+    push rdx
+    push rdi
+    push rsi
+    push r10
+    push r11
+    push r12
+    push r15
+
     mov rcx,digitSpace
     mov rbx,10
     mov [rcx],rbx
@@ -104,6 +119,15 @@ _print:
         cmp rcx,digitSpace
         jge _printString
 
+    pop r15
+    pop r12
+    pop r11
+    pop r10
+    pop rsi
+    pop rdi
+    pop rdx
+    pop rcx
+    pop rax
 ret
 
     
