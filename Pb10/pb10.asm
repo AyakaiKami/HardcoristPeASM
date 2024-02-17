@@ -2,8 +2,8 @@ section .bss
     digitSpace resb 100
     digitSpacePos resb 8
     primes resb 1024
-    primesPos resb 8
-    primesSize resb 8
+    primesPos resb 32
+    primesSize resb 32
 section .text
     global _start
 
@@ -11,6 +11,11 @@ _start:
     ;https://projecteuler.net/problem=10
     ;sum of primes
     ;rez in r10
+    mov eax,0
+    mov [primes],eax
+    mov [primesSize],eax
+
+
     xor r10,r10
     mov r11,10;limit/n
 
@@ -32,7 +37,19 @@ _start:
     mov rdi,0
     syscall
 _isPrim:
-    
+        ;rez is in rax
+        mov rax,1
+        cmp [primesSize],0
+        je _endisPrim
+
+        mov rdx,0
+
+        _endisPrim:
+        cmp rax,0
+        je _ret
+        mov r15,[primesSize]
+        inc r15
+        _ret
     ret
 _print:
     mov rcx,digitSpace
