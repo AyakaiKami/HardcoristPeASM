@@ -40,20 +40,29 @@ _start:
 
 ;is Prim function input in rax
 _isPrim:
-        ;rez is in rax
-        mov rax,1
-        cmp [primesSize],0
+        ;rez is in r15
+        mov r15,1
+        mov rbx,0
+        cmp [primesSize],ebx; 
         je _endisPrim
-
-        mov rdx,0
+        
+        _loopPrim:
+            mov eax,ecx
+            xor edx,edx
+            div r10
+            cmp rdx,0
+            jne _nextPrim
+            mov r15,0;not prim
+            jmp _endisPrim
+            _nextPrim: 
 
         _endisPrim:
         cmp rax,0
         je _ret
-        mov r15,[primesSize]
-        inc r15
-        mov [primesSize],r15
-        mov [primes+r15*32],ecx
+        mov rbx,[primesSize]
+        inc rbx
+        mov [primesSize],rbx
+        mov [primes+rbx],ecx
         _ret:
     ret
 
