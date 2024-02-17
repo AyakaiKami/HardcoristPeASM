@@ -49,7 +49,9 @@ _isPrim:
         je _ret
         mov r15,[primesSize]
         inc r15
-        _ret
+        mov [primesSize],r15
+        mov [primes+r15*32],rcx
+        _ret:
     ret
 _print:
     mov rcx,digitSpace
