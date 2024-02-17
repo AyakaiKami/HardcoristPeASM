@@ -10,32 +10,30 @@ section .text
 _start:
     ;https://projecteuler.net/problem=10
     ;sum of primes
-    mov rbx,0
-    mov [primesSize],rbx
-    mov rax,10
+    ;rez in r10
+    xor r10,r10
+    mov r11,10;limit/n
+
+    mov rcx,2;iterator
+    _loop:
+        call _isPrim
+        cmp rax,1
+        jne _next
+        add r10,rcx
+        _next:
+        cmp rcx,r11
+        jle _loop
+
+    mov rax,r10
     call _print
+    
     ;exit call
     mov rax,60
     mov rdi,0
     syscall
-
-_addPrime:;we will add rax
-    mov r13,[primesSize]
-    mov rcx,primes
-    mov [primesPos],rcx
-
-    _loopPrime:
-        mov rbx,[rcx]
-        cmp bl,0
-        je _endLoopPrime
-
-
-    _endLoopPrime:
-        push rax
-        add rax,48
-        mov [rcx],al
+_isPrim:
+    
     ret
-
 _print:
     mov rcx,digitSpace
     mov rbx,10
