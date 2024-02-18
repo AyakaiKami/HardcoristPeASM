@@ -10,7 +10,7 @@ section .text
 _start:
     mov rax,10
     call _print
-
+    call _openFile
     ;exit call
     mov rax,60
     mov rdi,0
@@ -21,7 +21,14 @@ _openFile:
     mov rdi,path
     mov rsi,0
     mov rdx,0
+    syscall
+    test rax,rax
+    js _errorOpenFile
     ret
+    _errorOpenFile:
+    mov rax,60
+    mov rdi,1
+    syscall
 
 _print:
     mov rcx,digitSpace
