@@ -21,7 +21,7 @@ _print:
     mov [rcx],bl
     inc rcx
     mov [digitSpacePos],rcx
-
+    mov rbx,10
     _stringMakeLoop:
         xor rdx,rdx
         div rbx
