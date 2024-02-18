@@ -1,7 +1,9 @@
+section .data
+    path db "Pb11/input.txt",0
 section .bss
     digitSpace resb 100
     digitSpacePos resb 8
-
+    fd resb 8
 section .text
     global _start
 
@@ -14,6 +16,12 @@ _start:
     mov rdi,0
     syscall
 
+_openFile:
+    mov rax,2
+    mov rdi,path
+    mov rsi,0
+    mov rdx,0
+    ret
 
 _print:
     mov rcx,digitSpace
