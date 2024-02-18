@@ -19,25 +19,33 @@ _print:
     mov rcx,digitSpace
     mov rbx,10
     mov [rcx],bl
+    inc rcx
     mov [digitSpacePos],rcx
 
     _stringMakeLoop:
         xor rdx,rdx
         div rbx
         add rdx,48
+        mov rcx,[digitSpacePos]
         mov [rcx],dl
 
-        mov rcx,[digitSpacePos]
         inc rcx
         mov [digitSpacePos],rcx
         cmp rax,0
         jne _stringMakeLoop
 
     _printString:
-        mov rax,0
+        mov rcx,[digitSpacePos]
+        mov rax,1
         mov rdi,1
         mov rdx,1
         mov rsi,rcx
         syscall
+
+        mov rcx,[digitSpacePos]
+        dec rcx
+        mov [digitSpacePos],rcx
+        cmp rcx,digitSpace
+        jge _printString
 
 ret
