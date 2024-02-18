@@ -8,9 +8,11 @@ section .text
     global _start
 
 _start:
-    mov rax,10
-    call _print
+    ;mov rax,10
+    ;call _print
     call _openFile
+
+    call _closeFile
     ;exit call
     mov rax,60
     mov rdi,0
@@ -24,12 +26,19 @@ _openFile:
     syscall
     test rax,rax
     js _errorOpenFile
-    ret
-    _errorOpenFile:
+    mov [fd],rax
+ret
+_errorOpenFile:
     mov rax,60
     mov rdi,1
     syscall
+ret
 
+_closeFile:
+    mov rax,3
+    mov rdi,[path]
+    syscall
+ret
 _print:
     mov rcx,digitSpace
     mov rbx,10
