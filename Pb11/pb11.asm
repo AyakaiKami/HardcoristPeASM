@@ -4,6 +4,7 @@ section .bss
     digitSpace resb 100
     digitSpacePos resb 8
     fd resb 8
+    gridSpace resb  
 section .text
     global _start
 
@@ -11,7 +12,7 @@ _start:
     ;mov rax,10
     ;call _print
     call _openFile
-
+    call _readFile
     call _closeFile
     ;exit call
     mov rax,60
